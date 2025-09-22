@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 class BranchController extends Controller
 {
     public function index()
+    
+    
     {
         $branches = Branch::all();
         return view('branches.index', compact('branches'));
@@ -64,6 +66,9 @@ class BranchController extends Controller
 {
     // Load PCs so view can list them
     $branch->load('pcs');
-    return view('branches.show', compact('branch'));
+    $totalSales = $branch->pcs()->sum('sales'); // DB-side sum (preferred)
+    return view('branches.show', compact('branch', 'totalSales'));
 }
+
+
 }

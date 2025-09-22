@@ -31,6 +31,7 @@ Route::get('/branches', fn() => view('branches'))->name('branches');
 Route::post('/branches/{branch}/pcs', [PcController::class, 'store'])->name('pcs.store');
  
 Route::delete('/branches/{branch}/pcs/{pc}', [PcController::class, 'destroy'])->name('pcs.destroy');
+Route::patch('branches/{branch}/pcs/{pc}/sales', [PcController::class, 'updateSales'])->name('pcs.updateSales');
 
 Route::resource('branches', BranchController::class);
 

@@ -12,7 +12,11 @@ class Pc extends Model
     // ✅ Allow these fields to be mass assignable
     protected $fillable = [
         'name',
+         'sales',
         'branch_id',
+    ];
+      protected $casts = [
+        'sales' => 'decimal:2',
     ];
 
     // 🔹 Relationship: PC belongs to Branch

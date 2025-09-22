@@ -28,8 +28,12 @@
     @endif
 
     <!-- Branches Grid -->
+     
+
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         @forelse($branches as $index => $branch)
+        <div onclick="window.location='{{ route('branches.show', $branch->id) }}'"
+     >
             <div class="group bg-white shadow-md hover:shadow-2xl rounded-2xl p-6 border border-gray-200 hover:border-blue-300 transform hover:scale-105 transition-all duration-300 ease-in-out animate-card-slide" 
                  style="animation-delay: {{ $index * 100 }}ms">
                 
@@ -57,32 +61,49 @@
                     </div>
                 </div>
 
-                <!-- Branch Details -->
-                <div class="space-y-3 mb-6">
-                    <div class="flex items-center text-sm text-gray-600 group-hover:text-gray-700 transition-colors duration-300">
-                        <div class="flex items-center justify-center w-8 h-8 bg-blue-50 rounded-full mr-3 group-hover:bg-blue-100 transition-colors duration-300">
-                            <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                            </svg>
-                        </div>
-                        <span class="truncate">{{ $branch->address }}</span>
-                    </div>
-                    
-                    <div class="flex items-center text-sm text-gray-600 group-hover:text-gray-700 transition-colors duration-300">
-                        <div class="flex items-center justify-center w-8 h-8 bg-green-50 rounded-full mr-3 group-hover:bg-green-100 transition-colors duration-300">
-                            <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
-                            </svg>
-                        </div>
-                        <span>{{ $branch->phone ?? 'No phone number' }}</span>
-                    </div>
-                </div>
-                <a href="{{ route('branches.show', $branch->id) }}"
-   class="flex-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-600 px-4 py-2 rounded-lg text-center text-sm font-medium">
-   ⚙️ Manage PCs
-</a>
+            <!-- Branch Details + Total Sales -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
 
+    <!-- Left: Branch Details -->
+    <div class="space-y-4">
+        <!-- Address -->
+        <div class="flex items-center text-sm text-gray-600 group-hover:text-gray-700 transition-colors duration-300">
+            <div class="flex items-center justify-center w-8 h-8 bg-blue-50 rounded-full mr-3 group-hover:bg-blue-100 transition-colors duration-300">
+                <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                </svg>
+            </div>
+            <span class="truncate">{{ $branch->address }}</span>
+        </div>
+
+        <!-- Phone -->
+        <div class="flex items-center text-sm text-gray-600 group-hover:text-gray-700 transition-colors duration-300">
+            <div class="flex items-center justify-center w-8 h-8 bg-green-50 rounded-full mr-3 group-hover:bg-green-100 transition-colors duration-300">
+                <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                </svg>
+            </div>
+            <span>{{ $branch->phone ?? 'No phone number' }}</span>
+        </div>
+    </div>
+
+    <!-- Right: Total Sales -->
+    <div class="justify-center mt-2 ml-8">
+    <h3 class="text-sm font-medium text-gray-500 flex items-center gap-2">
+        <!-- Money Icon -->
+        <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                  d="M12 3c-1.657 0-3 1.343-3 3v1H8a2 2 0 00-2 2v1h12V9a2 2 0 00-2-2h-1V6c0-1.657-1.343-3-3-3zM5 12a7 7 0 0014 0H5z"/>
+        </svg>
+        Total Sales
+    </h3>
+    <p class="mt-2 text-2xl font-bold text-green-600">
+        ₱{{ number_format($totalSales ?? $branch->pcs->sum('sales'), 2) }}
+    </p>
+</div>
+
+</div>
 
                 <!-- Action Buttons -->
                 <div class="flex space-x-3 pt-4 border-t border-gray-100">
@@ -112,6 +133,7 @@
                     </form>
                 </div>
             </div>
+    </div>
         @empty
             <div class="col-span-3 flex flex-col items-center justify-center py-12 animate-fade-in">
                 <div class="bg-gray-100 rounded-full p-6 mb-4">
@@ -127,6 +149,7 @@
                 </a>
             </div>
         @endforelse
+    </div>
 
     </div>
 </div>

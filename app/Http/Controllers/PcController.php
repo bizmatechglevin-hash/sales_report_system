@@ -16,6 +16,7 @@ class PcController extends Controller
 
         $branch->pcs()->create([
             'name' => $request->name,
+            'sales' => 0, // default
         ]);
 
         return redirect()->route('branches.show', $branch->id)
@@ -32,5 +33,18 @@ class PcController extends Controller
 
         return redirect()->route('branches.show', $branch->id)
                          ->with('success', 'PC deleted successfully!');
+    }
+      public function updateSales(Request $request, Branch $branch, Pc $pc)
+    {
+        $request->validate([
+            'sales' => 'required|numeric|min:0',
+        ]);
+
+        $pc->update([
+            'sales' => $request->sales,
+        ]);
+
+        return redirect()->route('branches.show', $branch->id)
+                         ->with('success', 'Sales updated.');
     }
 }

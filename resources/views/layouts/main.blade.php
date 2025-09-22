@@ -1,6 +1,7 @@
 <x-app-layout>
     <div class="py-12 bg-gray-100 min-h-screen">
         <div class="max-w-9xl mx-auto sm:px-6 lg:px-8">
+        
             <div class="flex gap-1">
                 <!-- Sidebar -->
                 <div class="w-64 bg-white shadow-lg sm:rounded-xl ">
@@ -30,7 +31,6 @@
              <!-- Label -->
                 <span>Branches</span>
                     </a>
-
                            <a href="{{ route('pcs') }}"
                                class="flex items-center px-3 py-2 text-sm font-semibold rounded-lg transition
                                  {{ request()->routeIs('pcs') 
@@ -70,8 +70,7 @@
                     </button>
                 </form>
                 </div>                       
-                    </div>
-                    
+                    </div>                
                 </div>              
                   <!-- Main content -->
                 <div class="flex-1 bg-white overflow-hidden shadow-lg sm:rounded-xl">
@@ -84,14 +83,14 @@
                   placeholder="Search..." 
                  class="w-full pl-10 pr-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           >
-        <!-- Search Icon -->
-        <svg class="w-5 h-5 absolute left-3 top-2.5 text-gray-400" 
-             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                  d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1110.5 3a7.5 7.5 0 016.15 13.65z" />
-        </svg>
-    </div>
-</div>
+                <!-- Search Icon -->
+                 <svg class="w-5 h-5 absolute left-3 top-2.5 text-gray-400" 
+                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                   d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1110.5 3a7.5 7.5 0 016.15 13.65z" />
+                  </svg>
+                </div>
+                </div>
                          <x-dropdown align="right" width="48">
                 <x-slot name="trigger">
                     <button class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-semibold rounded-lg text-blue-700 bg-blue-50 hover:bg-blue-100 hover:text-blue-900 focus:outline-none transition shadow">
@@ -119,7 +118,6 @@
                     </header>
                     @yield('content')
                 </div>
-
             </div>
         </div>
     </div>
