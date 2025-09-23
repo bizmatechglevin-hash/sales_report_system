@@ -37,8 +37,8 @@
                     </svg>
                 </div>
                 <div>
-                    <div class="text-lg font-bold">1,234</div>
-                    <div class="text-gray-500 text-xs">Today Sales</div>
+                    <div class="text-lg font-bold">₱{{ number_format($todaySales, 2) }}</div>
+            <div class="text-gray-500 text-xs">Today Sales</div>
                 </div>
             </div>
 
@@ -49,8 +49,8 @@
                     </svg>
                 </div>
                 <div>
-                    <div class="text-lg font-bold">$12,345</div>
-                    <div class="text-gray-500 text-xs">Monthly Sales</div>
+                    <div class="text-lg font-bold">₱{{ number_format($monthlySales, 2) }}</div>
+            <div class="text-gray-500 text-xs">Monthly Sales</div>
                 </div>
             </div>
 
@@ -62,8 +62,8 @@
                     </svg>
                 </div>
                 <div>
-                    <div class="text-lg font-bold">567</div>
-                    <div class="text-gray-500 text-xs">Total Sales</div>
+                    <div class="text-lg font-bold">₱{{ number_format($totalSales, 2) }}</div>
+            <div class="text-gray-500 text-xs">Total Sales</div>
                 </div>
             </div>
         </div>

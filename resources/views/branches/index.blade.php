@@ -90,7 +90,7 @@
 
     <!-- Right: Total Sales -->
     <div class="justify-center mt-2 ml-8">
-    <h3 class="text-sm font-medium text-gray-500 flex items-center gap-2">
+    <h3 class="text-sm font-medium text-gray-500 flex items-center gap-2 ">
         <!-- Money Icon -->
         <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 

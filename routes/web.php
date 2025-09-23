@@ -4,7 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\PcController;
-
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +32,7 @@ Route::post('/branches/{branch}/pcs', [PcController::class, 'store'])->name('pcs
  
 Route::delete('/branches/{branch}/pcs/{pc}', [PcController::class, 'destroy'])->name('pcs.destroy');
 Route::patch('branches/{branch}/pcs/{pc}/sales', [PcController::class, 'updateSales'])->name('pcs.updateSales');
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::resource('branches', BranchController::class);
 
