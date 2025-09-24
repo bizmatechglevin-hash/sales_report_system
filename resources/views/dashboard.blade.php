@@ -68,14 +68,12 @@
             </div>
         </div>
 
-        <!-- Chart -->
-        <div class="bg-white rounded-xl shadow p-6">
-            <canvas id="salesChart" height="100"></canvas>
-        </div>
-    </div>
+     <!-- Chart -->
+<div class="bg-white rounded-xl shadow p-6">
+    <canvas id="salesChart" height="100"></canvas>
 </div>
 
-<!-- Chart.js CDN and Chart Script -->
+<!-- Chart.js CDN -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     const ctx = document.getElementById('salesChart').getContext('2d');
@@ -85,7 +83,7 @@
             labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
             datasets: [{
                 label: 'Monthly Sales',
-                data: [1200, 1900, 3000, 2500, 3200, 2800, 3500, 4000, 3700, 4200, 3900, 4500],
+                data: @json(array_values($salesByMonth)),
                 backgroundColor: 'rgba(59, 130, 246, 0.2)',
                 borderColor: 'rgba(59, 130, 246, 1)',
                 borderWidth: 2,
@@ -101,4 +99,5 @@
         }
     });
 </script>
+
 @endsection

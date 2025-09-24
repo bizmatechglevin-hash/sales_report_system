@@ -22,6 +22,19 @@ class DashboardController extends Controller
         // Total sales (all time)
         $totalSales = Pc::sum('sales');
 
-        return view('dashboard', compact('todaySales', 'monthlySales', 'totalSales'));
+         // Sales grouped by month (for chart)
+    $monthlySalesData = Pc::selectRaw('MONTH(created_at) as month, SUM(sales) as total')
+                          ->whereYear('created_at', now()->year)
+                          ->groupBy('month')
+                          ->pluck('total', 'month')
+                          ->toArray();
+
+    // Fill missing months with 0
+    $salesByMonth = [];
+    for ($m = 1; $m <= 12; $m++) {
+        $salesByMonth[$m] = $monthlySalesData[$m] ?? 0;
+    }
+
+        return view('dashboard', compact('todaySales', 'monthlySales', 'totalSales','salesByMonth'));
     }
 }

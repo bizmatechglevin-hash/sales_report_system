@@ -75,11 +75,18 @@
                         </td>
 
                         <td class="px-4 py-3 border-b">
+                          
                             <form method="POST" action="{{ route('pcs.destroy', [$branch->id, $pc->id]) }}" onsubmit="return confirm('Delete this PC?')" class="inline">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="px-2 py-1 bg-red-600 text-white rounded"> Delete</button>
                             </form>
+
+
+                              <!-- View Saleslogs Button -->
+                        <a href="{{ route('pcs.saleslogs', $pc->id) }}" class="btn btn-info px-4 py-2 bg-green-600 text-white rounded">
+                            View
+                        </a>
                         </td>
                     </tr>
                 @empty

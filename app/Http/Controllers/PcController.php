@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Branch;
 use App\Models\Pc;
 use Illuminate\Http\Request;
+use App\Models\Saleslog;
 
 class PcController extends Controller
 {
@@ -47,4 +48,10 @@ class PcController extends Controller
         return redirect()->route('branches.show', $branch->id)
                          ->with('success', 'Sales updated.');
     }
+  public function viewSaleslogs(Pc $pc)
+{
+    $saleslogs = Saleslog::where('pc_id', $pc->id)->latest()->get();
+    return view('pcs.saleslogs', compact('pc', 'saleslogs'));
+}
+    
 }

@@ -33,6 +33,7 @@ Route::post('/branches/{branch}/pcs', [PcController::class, 'store'])->name('pcs
 Route::delete('/branches/{branch}/pcs/{pc}', [PcController::class, 'destroy'])->name('pcs.destroy');
 Route::patch('branches/{branch}/pcs/{pc}/sales', [PcController::class, 'updateSales'])->name('pcs.updateSales');
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/pcs/{pc}/saleslogs', [PcController::class, 'viewSaleslogs'])->name('pcs.saleslogs');
 
 Route::resource('branches', BranchController::class);
 
