@@ -24,6 +24,10 @@ class Saleslog extends Model
     {
         return $this->belongsTo(Pc::class);
     }  
+      public function branch()
+    {
+        return $this->belongsTo(Branch::class);
+    }
 }
 
 

@@ -4,6 +4,11 @@
 <div class="container mx-auto p-6">
     <h2 class="text-2xl font-bold mb-4">Sales Log for {{ $pc->name }}</h2>
 
+    <a href="{{ route('pcs.create', $pc->id) }}" 
+   class="inline-block mb-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+   + Add Sales (Test)
+</a>
+
     <div class="bg-white rounded-lg shadow overflow-x-auto">
         <table class="w-full border-collapse">
             <thead class="bg-gray-200 text-gray-700">
@@ -21,7 +26,7 @@
                 <tr class="hover:bg-gray-50">
                     <td class="px-4 py-2 border">{{ $log->created_at->format('Y-m-d H:i') }}</td>
                     <td class="px-4 py-2 border">{{ $log->branch->name }}</td>
-                    <td class="px-4 py-2 border">{{ $log->pcname }}</td>
+                    <td class="px-4 py-2 border">{{ $log->pc->name }}</td>
                     <td class="px-4 py-2 border">{{ $log->ssid ?? '-' }}</td>
                     <td class="px-4 py-2 border">₱{{ $log->coins }}</td>
                     <td class="px-4 py-2 border">{{ $log->credits }} mins</td>
@@ -34,9 +39,14 @@
                 </tr>
                 @endforelse
             </tbody>
-        </table>
-    </div>
+           
 
-   
+        </table>
+
+          
+ 
+{{-- ✅ Sticky total at bottom --}}
+<div class="sticky bottom-0 w-full bg-white shadow-lg border-t px-6 py-4 text-right font-bold text-lg">
+    Total Coins: ₱{{ number_format($totalCoins?? 0, 2) }}
 </div>
 @endsection

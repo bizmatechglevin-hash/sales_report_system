@@ -10,14 +10,13 @@ return new class extends Migration {
         Schema::table('pcs', function (Blueprint $table) {
             // adjust precision if you need larger numbers
             $table->decimal('sales', 12, 2)->default(0)->after('name');
-            $table->date('sale_date')->nullable()->after('sales'); // ✅ added sale_date
         });
     }
 
     public function down(): void
     {
         Schema::table('pcs', function (Blueprint $table) {
-            $table->dropColumn(['sales', 'sale_date']); // ✅ drop both when rolling back
+            $table->dropColumn('sales');
         });
     }
 };

@@ -62,6 +62,7 @@ class BranchController extends Controller
         return redirect()->route('branches.index')
                          ->with('success', 'Branch deleted successfully.');
     }
+    
     public function show(\App\Models\Branch $branch)
 {
     // Load PCs so view can list them

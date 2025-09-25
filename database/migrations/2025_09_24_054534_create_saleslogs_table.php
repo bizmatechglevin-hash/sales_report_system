@@ -10,6 +10,7 @@ return new class extends Migration {
         Schema::create('saleslogs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('pc_id')->constrained()->onDelete('cascade');
+            $table->foreignId('branch_id')->constrained()->onDelete('cascade'); 
             $table->string('pcname');
             $table->string('ssid')->nullable();
             $table->decimal('coins', 8, 2);  // ₱5, ₱10
@@ -20,6 +21,9 @@ return new class extends Migration {
 
     public function down(): void
     {
+        Schema::table('saleslogs', function (Blueprint $table) {
+            $table->dropColumn('pcname');
+        });
         Schema::dropIfExists('saleslogs');
     }
 };
