@@ -37,6 +37,24 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 
 Route::get('/pcs/{pc}/saleslogs', [PcController::class, 'viewSaleslogs'])->name('pcs.saleslogs');
 
+Route::post('/saleslogs/{pc}', [SaleslogController::class, 'store'])->name('saleslogs.store');
+
+Route::get('/pcs/{pc}/saleslogs/create', [SaleslogController::class, 'create'])
+    ->name('pcs.saleslogs.create');
+
+
+Route::post('/pcs/{pc}/saleslogs', [SaleslogController::class, 'store'])
+    ->name('pcs.saleslogs.store');
+    
+    
+
+    Route::get('/pcs/{pc}/saleslogs', [SaleslogController::class, 'saleslogs'])->name('pcs.saleslogs');
+ 
+
+
+
+
+
 Route::get('/pcs/create', [SaleslogController::class, 'create'])->name('pcs.create');
 
 Route::resource('saleslogs', SaleslogController::class);

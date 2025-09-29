@@ -7,8 +7,12 @@
             <h2 class="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 Branches
             </h2>
-       
         </div>
+         <button id="toggleViewBtn" 
+                class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-lg shadow transition">
+                Switch to Table
+            </button>
+         
         <a href="{{ route('branches.create') }}" 
            class="group relative bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 py-2 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 ease-in-out overflow-hidden">
            <span class="absolute inset-0 bg-gradient-to-r from-blue-700 to-blue-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
@@ -20,17 +24,14 @@
            </span>
         </a>
     </div>
-    
+
     @if(session('success'))
         <div class="mb-4 p-3 bg-green-100 text-green-700 rounded">
             {{ session('success') }}
         </div>
     @endif
-
     <!-- Branches Grid -->
-     
-
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div id="boxView" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         @forelse($branches as $index => $branch)
         <div onclick="window.location='{{ route('branches.show', $branch->id) }}'"
      >
@@ -76,7 +77,6 @@
             </div>
             <span class="truncate">{{ $branch->address }}</span>
         </div>
-
         <!-- Phone -->
         <div class="flex items-center text-sm text-gray-600 group-hover:text-gray-700 transition-colors duration-300">
             <div class="flex items-center justify-center w-8 h-8 bg-green-50 rounded-full mr-3 group-hover:bg-green-100 transition-colors duration-300">
@@ -87,7 +87,6 @@
             <span>{{ $branch->phone ?? 'No phone number' }}</span>
         </div>
     </div>
-
     <!-- Right: Total Sales -->
     <div class="justify-center mt-2 ml-8">
     <h3 class="text-sm font-medium text-gray-500 flex items-center gap-2 ">
@@ -102,9 +101,7 @@
         ₱{{ number_format($totalSales ?? $branch->pcs->sum('sales'), 2) }}
     </p>
 </div>
-
 </div>
-
                 <!-- Action Buttons -->
                 <div class="flex space-x-3 pt-4 border-t border-gray-100">
                     <a href="{{ route('branches.edit', $branch->id) }}" 
@@ -115,8 +112,7 @@
                             </svg>
                             <span>Edit</span>
                         </span>
-                    </a>
-                    
+                    </a>              
                     <form action="{{ route('branches.destroy', $branch->id) }}" method="POST" 
                           onsubmit="return confirm('Are you sure you want to delete this branch?')" class="flex-1">
                         @csrf
@@ -150,9 +146,92 @@
             </div>
         @endforelse
     </div>
+      <div id="tableView" class="hidden bg-white shadow rounded-lg overflow-x-auto">
+        <table class="w-full border-collapse">
+            <thead>
+                <tr class="bg-gray-200 text-gray-700">
+                    <th class="px-4 py-2 border">#</th>
+                    <th class="px-4 py-2 border">Branch Name</th>
+                    <th class="px-4 py-2 border">Code</th>
+                    <th class="px-4 py-2 border">Address</th>
+                    <th class="px-4 py-2 border">Phone</th>
+                    <th class="px-4 py-2 border">Status</th>
+                    <th class="px-4 py-2 border">Total Sales</th>
+                    <th class="px-4 py-2 border">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($branches as $i => $branch)
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-4 py-2 border">{{ $i+1 }}</td>
+                        <td class="px-4 py-2 border">{{ $branch->name }}</td>
+                        <td class="px-4 py-2 border">{{ $branch->code }}</td>
+                        <td class="px-4 py-2 border">{{ $branch->address }}</td>
+                        <td class="px-4 py-2 border">{{ $branch->phone ?? '-' }}</td>
+                        <td class="px-4 py-2 border">
+                            @if($branch->is_active)
+                                <span class="text-green-600 font-semibold">Active</span>
+                            @else
+                                <span class="text-red-600 font-semibold">Inactive</span>
+                            @endif
+                        </td>
+                        <td class="px-4 py-2 border">₱{{ number_format($branch->pcs->sum('sales'), 2) }}</td>
 
-    </div>
+                          <td class="border px-4 py-2 flex gap-2">
+                         <div class="flex space-x-2">
+    <!-- Edit -->
+    <a href="{{ route('branches.edit', $branch->id) }}" 
+       class="px-2 py-2 bg-green-600 hover:bg-green-700 text-white rounded shadow transition flex items-center justify-center"
+       title="Edit">
+        <!-- Pencil Icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" 
+             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" 
+                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5
+                     m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828
+                     l8.586-8.586z" />
+        </svg>
+    </a>
+
+    <!-- Delete -->
+    <form action="{{ route('branches.destroy', $branch->id) }}" method="POST" 
+          onsubmit="return confirm('Delete this branch?')" class="inline">
+        @csrf
+        @method('DELETE')
+        <button type="submit" 
+            class="px-2 py-2 bg-red-600 hover:bg-red-700 text-white rounded shadow transition flex items-center justify-center"
+            title="Delete">
+            <!-- Trash Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" 
+                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" 
+                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7
+                         m5 4v6m4-6v6m1-10V4
+                         a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+            </svg>
+        </button>
+    </form>
+
+    <!-- View PC -->
+    <a href="{{ route('branches.show', $branch->id) }}" 
+       class="px-4 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded shadow transition flex items-center justify-center ml-8"
+       title="View PC"> View Pc
+       
+    </a>
 </div>
+
+
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="7" class="text-center p-4 text-gray-500">No branches found.</td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
+    </div>
+
 
 <style>
 @keyframes fade-in {
@@ -228,4 +307,23 @@ html {
     animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 </style>
+
+<script>
+    document.getElementById("toggleViewBtn").addEventListener("click", function() {
+        const boxView = document.getElementById("boxView");
+        const tableView = document.getElementById("tableView");
+
+        if (boxView.classList.contains("hidden")) {
+            // Show box view
+            boxView.classList.remove("hidden");
+            tableView.classList.add("hidden");
+            this.textContent = "Switch to Table";
+        } else {
+            // Show table view
+            boxView.classList.add("hidden");
+            tableView.classList.remove("hidden");
+            this.textContent = "Switch to Boxes";
+        }
+    });
+</script>
 @endsection

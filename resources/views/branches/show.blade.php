@@ -36,6 +36,7 @@
         <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">➕ Add PC</button>
     </form>
 
+    
     <!-- PCs table -->
     <div class="overflow-x-auto bg-white rounded-lg shadow-sm border">
         <table class="w-full">
@@ -79,14 +80,14 @@
                             <form method="POST" action="{{ route('pcs.destroy', [$branch->id, $pc->id]) }}" onsubmit="return confirm('Delete this PC?')" class="inline">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="px-2 py-1 bg-red-600 text-white rounded"> Delete</button>
+                                <button type="submit" class="px-2 py-1 bg-red-600 text-white rounded "> Delete</button>
                             </form>
-
-
                               <!-- View Saleslogs Button -->
+                        <div class="inline-block ml-8">
                         <a href="{{ route('pcs.saleslogs', $pc->id) }}" class="btn btn-info px-4 py-2 bg-green-600 text-white rounded">
-                            View
+                            View Sales
                         </a>
+                        </div>
                         </td>
                     </tr>
                 @empty

@@ -14,7 +14,6 @@ class Saleslog extends Model
     protected $fillable = [
         'pc_id',
         'branch_id',
-        'pcname',
         'ssid',
         'coins',
         'credits',

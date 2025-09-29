@@ -11,7 +11,6 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('pc_id')->constrained()->onDelete('cascade');
             $table->foreignId('branch_id')->constrained()->onDelete('cascade'); 
-            $table->string('pcname');
             $table->string('ssid')->nullable();
             $table->decimal('coins', 8, 2);  // ₱5, ₱10
             $table->integer('credits');      // minutes
@@ -26,5 +25,6 @@ return new class extends Migration {
         });
         Schema::dropIfExists('saleslogs');
     }
+
 };
 

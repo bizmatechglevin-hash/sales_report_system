@@ -54,7 +54,7 @@ class BranchController extends Controller
         return redirect()->route('branches.index')
                          ->with('success', 'Branch updated successfully.');
     }
-
+     
     public function destroy(Branch $branch)
     {
         $branch->delete();
@@ -69,7 +69,8 @@ class BranchController extends Controller
     $branch->load('pcs');
     $totalSales = $branch->pcs()->sum('sales'); // DB-side sum (preferred)
     return view('branches.show', compact('branch', 'totalSales'));
-}
+}   
+
 
 
 }
