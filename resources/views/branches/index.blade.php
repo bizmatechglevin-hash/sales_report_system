@@ -2,17 +2,32 @@
 @section('content')
 <div class="p-6 bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
     <!-- Header Section with Animation -->
-    <div class="flex items-center justify-between mb-8 animate-fade-in">
-        <div>
-            <h2 class="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Branches
-            </h2>
-        </div>
-         <button id="toggleViewBtn" 
-                class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-lg shadow transition">
-                Switch to Table
-            </button>
-         
+   <div class="flex items-center justify-between mb-8 animate-fade-in">
+    <!-- Left: Heading -->
+    <h2 class="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+        Branches
+    </h2>
+
+    <!-- Right: Buttons -->
+    <div class="flex items-center space-x-4">
+       <button id="toggleViewBtn" 
+        class="group relative inline-flex items-center gap-2 px-4 py-2.5 bg-transparent hover:bg-gray-50 text-gray-700 hover:text-blue-600 font-semibold rounded-lg transition-all duration-200">
+    <!-- Underline effect -->
+    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-indigo-600 group-hover:w-full transition-all duration-300"></span>
+    
+    <!-- Icon -->
+    <svg xmlns="http://www.w3.org/2000/svg" 
+         class="h-5 w-5 transform group-hover:rotate-12 transition-transform duration-200" 
+         fill="none" 
+         viewBox="0 0 24 24" 
+         stroke="currentColor"
+         stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
+    </svg>
+    
+    <span id="toggleText" class="relative">Switch to Table</span>
+</button>
+
         <a href="{{ route('branches.create') }}" 
            class="group relative bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 py-2 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 ease-in-out overflow-hidden">
            <span class="absolute inset-0 bg-gradient-to-r from-blue-700 to-blue-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
@@ -24,7 +39,8 @@
            </span>
         </a>
     </div>
-
+</div>
+    <!-- Success Message -->
     @if(session('success'))
         <div class="mb-4 p-3 bg-green-100 text-green-700 rounded">
             {{ session('success') }}
@@ -33,8 +49,9 @@
     <!-- Branches Grid -->
     <div id="boxView" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         @forelse($branches as $index => $branch)
-        <div onclick="window.location='{{ route('branches.show', $branch->id) }}'"
-     >
+       <div onclick="window.location='{{ route('branches.show', explode(' ', $branch->name)[0]) }}'">
+
+     
             <div class="group bg-white shadow-md hover:shadow-2xl rounded-2xl p-6 border border-gray-200 hover:border-blue-300 transform hover:scale-105 transition-all duration-300 ease-in-out animate-card-slide" 
                  style="animation-delay: {{ $index * 100 }}ms">
                 
@@ -147,88 +164,106 @@
         @endforelse
     </div>
       <div id="tableView" class="hidden bg-white shadow rounded-lg overflow-x-auto">
-        <table class="w-full border-collapse">
-            <thead>
-                <tr class="bg-gray-200 text-gray-700">
-                    <th class="px-4 py-2 border">#</th>
-                    <th class="px-4 py-2 border">Branch Name</th>
-                    <th class="px-4 py-2 border">Code</th>
-                    <th class="px-4 py-2 border">Address</th>
-                    <th class="px-4 py-2 border">Phone</th>
-                    <th class="px-4 py-2 border">Status</th>
-                    <th class="px-4 py-2 border">Total Sales</th>
-                    <th class="px-4 py-2 border">Action</th>
+         <table class="w-full border-collapse bg-white">
+        <thead>
+            <tr class="bg-gradient-to-r from-gray-700 to-gray-800 text-white">
+                <th class="px-6 py-4 text-left text-sm font-semibold">#</th>
+                <th class="px-6 py-4 text-left text-sm font-semibold">Branch Name</th>
+                <th class="px-6 py-4 text-left text-sm font-semibold">Code</th>
+                <th class="px-6 py-4 text-left text-sm font-semibold">Address</th>
+                <th class="px-6 py-4 text-left text-sm font-semibold">Phone</th>
+                <th class="px-6 py-4 text-left text-sm font-semibold">Status</th>
+                <th class="px-6 py-4 text-left text-sm font-semibold">Total Sales</th>
+                <th class="px-6 py-4 text-center text-sm font-semibold">Actions</th>
+            </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200">
+            @forelse($branches as $i => $branch)
+                <tr class="hover:bg-gray-50 transition duration-150">
+                    <td class="px-6 py-4 text-sm text-gray-700 font-medium">{{ $i+1 }}</td>
+                    <td class="px-6 py-4 text-sm text-gray-900 font-medium">{{ $branch->name }}</td>
+                    <td class="px-6 py-4 text-sm text-gray-600">
+                        <span class="bg-gray-100 px-3 py-1 rounded-full text-xs font-mono">{{ $branch->code }}</span>
+                    </td>
+                    <td class="px-6 py-4 text-sm text-gray-600 max-w-xs truncate" title="{{ $branch->address }}">
+                        {{ $branch->address }}
+                    </td>
+                    <td class="px-6 py-4 text-sm text-gray-600">{{ $branch->phone ?? '-' }}</td>
+                    <td class="px-6 py-4 text-sm">
+                        @if($branch->is_active)
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">
+                                <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                </svg>
+                                Active
+                            </span>
+                        @else
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-red-100 text-red-700">
+                                <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                                </svg>
+                                Inactive
+                            </span>
+                        @endif
+                    </td>
+                    <td class="px-6 py-4 text-sm font-semibold text-gray-900">
+                        ₱{{ number_format($branch->pcs->sum('sales'), 2) }}
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-center justify-center gap-2">
+                            <!-- Edit -->
+                            <a href="{{ route('branches.edit', $branch->id) }}" 
+                               class="p-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg shadow-sm hover:shadow-md transition-all duration-200 transform hover:scale-105"
+                               title="Edit">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" 
+                                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" 
+                                          d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                </svg>
+                            </a>
+
+                            <!-- Delete -->
+                            <form action="{{ route('branches.destroy', $branch->id) }}" method="POST" 
+                                  onsubmit="return confirm('Are you sure you want to delete this branch?')" 
+                                  class="inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" 
+                                    class="p-2 bg-red-500 hover:bg-red-600 text-white rounded-lg shadow-sm hover:shadow-md transition-all duration-200 transform hover:scale-105"
+                                    title="Delete">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" 
+                                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" 
+                                              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                                    </svg>
+                                </button>
+                            </form>
+
+                            <!-- View PC -->
+                           <a href="{{ route('branches.show', explode(' ', $branch->name)[0]) }}" 
+   class="px-3 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg shadow-sm hover:shadow-md transition-all duration-200 transform hover:scale-105 text-xs font-medium"
+   title="View PC">
+   View PC
+</a>
+
+                        </div>
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                @forelse($branches as $i => $branch)
-                    <tr class="hover:bg-gray-50">
-                        <td class="px-4 py-2 border">{{ $i+1 }}</td>
-                        <td class="px-4 py-2 border">{{ $branch->name }}</td>
-                        <td class="px-4 py-2 border">{{ $branch->code }}</td>
-                        <td class="px-4 py-2 border">{{ $branch->address }}</td>
-                        <td class="px-4 py-2 border">{{ $branch->phone ?? '-' }}</td>
-                        <td class="px-4 py-2 border">
-                            @if($branch->is_active)
-                                <span class="text-green-600 font-semibold">Active</span>
-                            @else
-                                <span class="text-red-600 font-semibold">Inactive</span>
-                            @endif
-                        </td>
-                        <td class="px-4 py-2 border">₱{{ number_format($branch->pcs->sum('sales'), 2) }}</td>
-
-                          <td class="border px-4 py-2 flex gap-2">
-                         <div class="flex space-x-2">
-    <!-- Edit -->
-    <a href="{{ route('branches.edit', $branch->id) }}" 
-       class="px-2 py-2 bg-green-600 hover:bg-green-700 text-white rounded shadow transition flex items-center justify-center"
-       title="Edit">
-        <!-- Pencil Icon -->
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" 
-             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" 
-                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5
-                     m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828
-                     l8.586-8.586z" />
-        </svg>
-    </a>
-
-    <!-- Delete -->
-    <form action="{{ route('branches.destroy', $branch->id) }}" method="POST" 
-          onsubmit="return confirm('Delete this branch?')" class="inline">
-        @csrf
-        @method('DELETE')
-        <button type="submit" 
-            class="px-2 py-2 bg-red-600 hover:bg-red-700 text-white rounded shadow transition flex items-center justify-center"
-            title="Delete">
-            <!-- Trash Icon -->
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" 
-                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" 
-                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7
-                         m5 4v6m4-6v6m1-10V4
-                         a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-            </svg>
-        </button>
-    </form>
-
-    <!-- View PC -->
-    <a href="{{ route('branches.show', $branch->id) }}" 
-       class="px-4 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded shadow transition flex items-center justify-center ml-8"
-       title="View PC"> View Pc
-       
-    </a>
-</div>
-
-
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="7" class="text-center p-4 text-gray-500">No branches found.</td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
+            @empty
+                <tr>
+                    <td colspan="8" class="text-center py-12">
+                        <div class="flex flex-col items-center justify-center text-gray-400">
+                            <svg class="w-16 h-16 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
+                            </svg>
+                            <p class="text-lg font-medium">No branches found</p>
+                            <p class="text-sm mt-1">Start by adding your first branch</p>
+                        </div>
+                    </td>
+                </tr>
+            @endforelse
+        </tbody>
+    </table>
     </div>
     </div>
 

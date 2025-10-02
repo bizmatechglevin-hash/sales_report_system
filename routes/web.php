@@ -29,40 +29,47 @@ Route::get('/dashboard', function () {
 
 Route::get('/branches', fn() => view('branches'))->name('branches');
 
+// Create PC for a specific branch
 Route::post('/branches/{branch}/pcs', [PcController::class, 'store'])->name('pcs.store');
  
 Route::delete('/branches/{branch}/pcs/{pc}', [PcController::class, 'destroy'])->name('pcs.destroy');
 Route::patch('branches/{branch}/pcs/{pc}/sales', [PcController::class, 'updateSales'])->name('pcs.updateSales');
+
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
 
 Route::get('/pcs/{pc}/saleslogs', [PcController::class, 'viewSaleslogs'])->name('pcs.saleslogs');
 
 Route::post('/saleslogs/{pc}', [SaleslogController::class, 'store'])->name('saleslogs.store');
 
+ // Create saleslog for a specific PC
+
 Route::get('/pcs/{pc}/saleslogs/create', [SaleslogController::class, 'create'])
     ->name('pcs.saleslogs.create');
-
 
 Route::post('/pcs/{pc}/saleslogs', [SaleslogController::class, 'store'])
     ->name('pcs.saleslogs.store');
     
-    
-
-    Route::get('/pcs/{pc}/saleslogs', [SaleslogController::class, 'saleslogs'])->name('pcs.saleslogs');
+ Route::get('/pcs/{pc}/saleslogs', [SaleslogController::class, 'saleslogs'])->name('pcs.saleslogs');
  
 
-
-
-
-
+ // Form to create a new PC
 Route::get('/pcs/create', [SaleslogController::class, 'create'])->name('pcs.create');
 
 Route::resource('saleslogs', SaleslogController::class);
 
-
 Route::resource('branches', BranchController::class);
 
 Route::get('/pcs', fn() => view('pcs'))->name('pcs');
+
+
+Route::get('/branches/{name}', [BranchController::class, 'show'])->name('branches.show');
+
+Route::get('/branches/{identifier}', [BranchController::class, 'show'])
+    ->name('branches.show');
+
+
+// Profile routes
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

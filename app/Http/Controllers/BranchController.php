@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Branch;
 use Illuminate\Http\Request;
+use App\Models\Saleslog;
 
 class BranchController extends Controller
 {
@@ -63,13 +64,26 @@ class BranchController extends Controller
                          ->with('success', 'Branch deleted successfully.');
     }
     
-    public function show(\App\Models\Branch $branch)
+public function show($identifier)
 {
-    // Load PCs so view can list them
+    // If identifier is numeric → find by ID
+    if (is_numeric($identifier)) {
+        $branch = \App\Models\Branch::findOrFail($identifier);
+    } else {
+        // Otherwise → find by first word of branch name
+        $branch = \App\Models\Branch::whereRaw("SUBSTRING_INDEX(name, ' ', 1) = ?", [$identifier])
+            ->firstOrFail();
+    }
+
+    // Load related PCs
     $branch->load('pcs');
-    $totalSales = $branch->pcs()->sum('sales'); // DB-side sum (preferred)
+
+    // Calculate total sales
+    $totalSales = $branch->pcs()->sum('sales');
+
     return view('branches.show', compact('branch', 'totalSales'));
-}   
+}
+
 
 
 
