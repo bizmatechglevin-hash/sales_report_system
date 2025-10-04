@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
-<div class="p-6 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 min-h-screen ">
+<div class="p-6  min-h-screen ">
     <!-- Header Section -->
     <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-4">
         <div class="flex items-center gap-3">
@@ -114,6 +114,7 @@
 
         <!-- Desktop Table View -->
         <div class="hidden lg:block overflow-x-auto">
+             <div class="overflow-x-auto max-h-[calc(100vh-24rem)] scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
             <table class="w-full">
                 <thead>
                     <tr class="bg-gradient-to-r from-gray-50 to-gray-100 border-b-2 border-gray-200">
@@ -215,8 +216,9 @@
                     @endforelse
                 </tbody>
             </table>
+             </div>
         </div>
-
+    
         <!-- Sticky Total Footer -->
         <div class="sticky bottom-0  w-full bg-gradient-to-r from-blue-600 to-indigo-700 shadow-lg border-t-2 border-blue-700 px-6 py-4">
             <div class="flex items-center justify-between"> 
@@ -234,3 +236,32 @@
     </div>
 </div>  
 @endsection
+
+<style>
+/* Custom Scrollbar Styles */
+.scrollbar-thin::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 10px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+    transition: background 0.2s;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* Firefox scrollbar */
+.scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 #f1f5f9;
+}
+</style>

@@ -48,6 +48,7 @@ public function store(Request $request)
   return redirect()->route('pcs.saleslogs', ['pc' => $validated['pc_id']])
                  ->with('success', 'Sales log created successfully.');
 }
+ 
 
  public function saleslogs(Pc $pc) // route-model binding
     {
@@ -60,6 +61,5 @@ public function store(Request $request)
 
         return view('pcs.saleslogs', compact('pc', 'saleslogs', 'totalCoins'));
     }
-
 
 }

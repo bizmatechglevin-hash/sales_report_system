@@ -16,10 +16,6 @@ class BranchController extends Controller
         return view('branches.index', compact('branches'));
     }
 
-    public function create()
-    {
-        return view('branches.create');
-    }
 
     public function store(Request $request)
     {
@@ -36,10 +32,6 @@ class BranchController extends Controller
                          ->with('success', 'Branch created successfully.');
     }
 
-    public function edit(Branch $branch)
-    {
-        return view('branches.edit', compact('branch'));
-    }
 
     public function update(Request $request, Branch $branch)
     {
@@ -83,8 +75,6 @@ public function show($identifier)
 
     return view('branches.show', compact('branch', 'totalSales'));
 }
-
-
 
 
 }
